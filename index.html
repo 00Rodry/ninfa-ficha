@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ficha Ninfa Lash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  /* ====== CONFIGURACIÓN: correo fijo que recibe TODAS las fichas ====== */
+  :root{
+    --bg:#f5effa; --card:#ffffff; --ink:#2e2140; --muted:#7a6a8c;
+    --accent:#7b4fa8; --accent-ink:#ffffff; --line:#e4d9f0; --soft:#f4edfb;
+    --wing-a:#d9c2f0; --wing-b:#8a5cc0; --err:#b3443a; --glass:rgba(255,255,255,.8);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1b1424; --card:#251c31; --ink:#efe6f8; --muted:#b4a5c6;
+      --accent:#b48ee0; --accent-ink:#1b1424; --line:#3a2d4a; --soft:#2d2239;
+      --wing-a:#cdb3ea; --wing-b:#9a6dd0; --err:#e0756b; --glass:rgba(37,28,49,.82);
+    }
+  }
+  .butterfly{width:120px;height:90px;display:block;margin:0 auto 6px;overflow:visible}
+  .butterfly{animation:bob 4.5s ease-in-out infinite}
+  .butterfly .wl,.butterfly .wr{transform-origin:60px 47px;animation:flut 1.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+  @keyframes flut{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.58)}}
+  .butterfly .shine{animation:shine 6s ease-in-out infinite}
+  @keyframes shine{0%{transform:translateX(0);opacity:0}5%{opacity:1}33%{transform:translateX(180px);opacity:1}36%,100%{transform:translateX(180px);opacity:0}}
+  .butterfly .spark{transform-box:fill-box;transform-origin:center;opacity:0;animation:spark 6s ease-out infinite}
+  .butterfly .s2{animation-delay:.25s}.butterfly .s3{animation-delay:.5s}.butterfly .s4{animation-delay:.75s}.butterfly .s5{animation-delay:1s}
+  @keyframes spark{0%{opacity:0;transform:scale(.2) rotate(0)}8%{opacity:1;transform:scale(1) rotate(45deg)}20%,100%{opacity:0;transform:scale(.3) rotate(90deg)}}
+  @media (prefers-reduced-motion:reduce){.butterfly,.mini,.butterfly .wl,.butterfly .wr,.butterfly .shine,.butterfly .spark{animation:none}.butterfly .shine{opacity:0}}
+
+  /* Mariposas pequeñas de fondo */
+  #vuelo{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .wrap{position:relative;z-index:1}
+  .mini{position:absolute;left:var(--x);top:105%;width:var(--s);height:var(--s);opacity:0;
+    animation:subir var(--d) linear var(--dl) infinite}
+  .mini svg{width:100%;height:100%;display:block;overflow:visible;animation:vaiven calc(var(--d)/4) ease-in-out infinite alternate}
+  .mini .ala{transform-origin:12px 12px;animation:aletea var(--f) ease-in-out infinite}
+  @keyframes subir{0%{top:105%;opacity:0}8%{opacity:var(--o)}88%{opacity:var(--o)}100%{top:-8%;opacity:0}}
+  @keyframes vaiven{from{transform:translateX(-26px) rotate(-12deg)}to{transform:translateX(26px) rotate(12deg)}}
+  @keyframes aletea{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.45)}}
+  /* Firma */
+  .modos{display:flex;gap:8px;margin-bottom:10px}
+  .modos button{flex:1;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--soft);
+    color:var(--ink);font:inherit;font-weight:600;font-size:13px;cursor:pointer}
+  .modos button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .escrita{display:none}
+  .escrita .vista{margin-top:10px;min-height:90px;border:1px dashed var(--accent);border-radius:12px;background:#fff;
+    display:flex;align-items:center;justify-content:center;font-family:"Great Vibes",cursive;font-size:42px;color:#2e2140;padding:8px;text-align:center;line-height:1.1}
+  .sigbox canvas{background:#fff}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Montserrat,system-ui,sans-serif;font-size:15px;line-height:1.45}
+  .wrap{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+  header{text-align:center;padding:18px 0 22px}
+  .brand{font-family:"Cormorant Garamond",serif;font-size:52px;font-weight:600;line-height:1;margin:0;letter-spacing:.5px;color:var(--accent)}
+  .sub{letter-spacing:.42em;font-size:12px;font-weight:600;margin-top:6px;color:var(--accent)}
+  .tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:18px;color:var(--muted);margin-top:8px}
+  section{background:var(--glass);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border:1px solid var(--line);border-radius:16px;padding:18px 16px;margin-bottom:16px}
+  h2{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px;font-weight:600;color:var(--accent)}
+  label.f{display:block;font-size:13px;font-weight:500;margin:12px 0 6px}
+  label.f:first-of-type{margin-top:0}
+  .req::after{content:" *";color:var(--accent)}
+  input[type=text],input[type=email],input[type=tel],input[type=date],textarea{
+    width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--soft);
+    border:1px solid var(--line);border-radius:10px;padding:12px;outline:none;-webkit-appearance:none;appearance:none}
+  input:focus,textarea:focus{border-color:var(--accent)}
+  textarea{min-height:90px;resize:vertical}
+  .row label.f{margin-top:12px}
+  .row{display:grid;grid-template-columns:1fr;gap:0 12px}
+  @media(min-width:520px){.row{grid-template-columns:1fr 1fr}}
+  .svc{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+  .chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-weight:500}
+  .chk input{width:22px;height:22px;accent-color:var(--accent);flex:0 0 auto;margin:0}
+  .svc .more{display:none;margin-top:10px}
+  .svc.on .more{display:block}
+  .q{padding:12px 0;border-bottom:1px solid var(--line)}
+  .q:last-of-type{border-bottom:0}
+  .q p{margin:0 0 10px}
+  .yn{display:flex;gap:8px}
+  .yn label{flex:1}
+  .yn input{position:absolute;opacity:0;pointer-events:none}
+  .yn span{display:block;text-align:center;padding:10px;border:1px solid var(--line);border-radius:10px;
+    font-weight:600;background:var(--soft);cursor:pointer}
+  .yn input:checked+span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .yn input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+  .legal{font-size:13px;color:var(--muted);text-align:justify;margin:0 0 14px}
+  .sigbox{border:1px dashed var(--accent);border-radius:12px;background:var(--soft);position:relative}
+  canvas{display:block;width:100%;height:170px;touch-action:none;border-radius:12px}
+  .sighint{position:absolute;inset:auto 0 10px 0;text-align:center;font-size:12px;color:var(--muted);pointer-events:none}
+  .sigtools{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12px;color:var(--muted)}
+  .link{background:none;border:0;color:var(--accent);font:inherit;font-weight:600;padding:6px 0;cursor:pointer}
+  .btn{width:100%;padding:16px;border:0;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+    font:inherit;font-weight:600;font-size:16px;letter-spacing:.06em;cursor:pointer}
+  .btn:disabled{opacity:.6}
+  .err{color:var(--err);font-size:13px;margin-top:8px;display:none}
+  .note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="vuelo" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <svg class="butterfly" viewBox="0 0 120 90" aria-hidden="true">
+      <defs>
+        <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="var(--wing-a)"/><stop offset="1" stop-color="var(--wing-b)"/>
+        </linearGradient>
+        <linearGradient id="shg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="wclip"><path d="M60 46 C45 10 10 4 8 24 C6 42 35 49 60 47 Z M60 49 C40 51 18 62 25 77 C33 90 52 71 60 51 Z"/></clipPath>
+        <path id="star" d="M0 -5 L1.2 -1.2 L5 0 L1.2 1.2 L0 5 L-1.2 1.2 L-5 0 L-1.2 -1.2 Z"/>
+      </defs>
+      <g class="wl">
+        <path d="M60 46 C45 10 10 4 8 24 C6 42 35 49 60 47 Z" fill="url(#wg)"/>
+        <path d="M60 49 C40 51 18 62 25 77 C33 90 52 71 60 51 Z" fill="url(#wg)" opacity=".85"/>
+        <path d="M56 44 C44 22 22 16 19 27 C17 37 38 43 56 44 Z" fill="#fff" opacity=".28"/>
+        <g clip-path="url(#wclip)"><g transform="skewX(-15)"><rect class="shine" x="-40" y="0" width="40" height="90" fill="url(#shg)"/></g></g>
+      </g>
+      <g transform="translate(120 0) scale(-1 1)">
+        <g class="wr">
+          <path d="M60 46 C45 10 10 4 8 24 C6 42 35 49 60 47 Z" fill="url(#wg)"/>
+          <path d="M60 49 C40 51 18 62 25 77 C33 90 52 71 60 51 Z" fill="url(#wg)" opacity=".85"/>
+          <path d="M56 44 C44 22 22 16 19 27 C17 37 38 43 56 44 Z" fill="#fff" opacity=".28"/>
+        <g clip-path="url(#wclip)"><g transform="skewX(-15)"><rect class="shine" x="-40" y="0" width="40" height="90" fill="url(#shg)"/></g></g>
+        </g>
+      </g>
+      <use href="#star" class="spark s1" x="14" y="12" fill="var(--wing-b)"/>
+      <use href="#star" class="spark s2" x="106" y="18" fill="var(--wing-a)"/>
+      <use href="#star" class="spark s3" x="6" y="62" fill="var(--wing-a)"/>
+      <use href="#star" class="spark s4" x="112" y="70" fill="var(--wing-b)"/>
+      <use href="#star" class="spark s5" x="60" y="86" fill="var(--wing-b)"/>
+      <ellipse cx="60" cy="50" rx="2.6" ry="15" fill="var(--ink)"/>
+      <path d="M59 36 Q53 22 46 17 M61 36 Q67 22 74 17" stroke="var(--ink)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <circle cx="46" cy="17" r="1.8" fill="var(--ink)"/><circle cx="74" cy="17" r="1.8" fill="var(--ink)"/>
+    </svg>
+    <h1 class="brand">Ninfa</h1>
+    <div class="sub">LASH ATELIER</div>
+    <div class="tag">Tu mirada, nuestra obra de arte.</div>
+  </header>
+
+  <section id="gracias" style="display:none;text-align:center;padding:32px 20px">
+    <h2 style="font-size:15px">Ficha enviada</h2>
+    <p style="margin:0">Gracias. Te llegó una copia al correo que indicaste (revisa también la carpeta de spam). Nos vemos pronto en el atelier.</p>
+  </section>
+
+  <form id="ficha" method="POST" enctype="multipart/form-data" novalidate>
+    <!-- Campos técnicos del servicio de envío -->
+    <input type="hidden" name="_subject" id="_subject" value="Ficha clienta – Ninfa Lash Atelier">
+    <input type="hidden" name="_cc" id="_cc">
+    <input type="hidden" name="_next" id="_next">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <input type="file" name="attachment" id="firmaFile" style="display:none">
+
+    <section>
+      <h2>1. Datos personales</h2>
+      <label class="f req" for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="Nombre completo" required autocomplete="name">
+      <div class="row">
+        <div>
+          <label class="f req" for="fecha">Fecha</label>
+          <input type="date" id="fecha" name="Fecha" required>
+        </div>
+        <div>
+          <label class="f req" for="rut">RUT / Cédula</label>
+          <input type="text" id="rut" name="RUT / Cédula" required placeholder="12.345.678-9">
+        </div>
+        <div>
+          <label class="f req" for="tel">Teléfono / WhatsApp</label>
+          <input type="tel" id="tel" name="Teléfono / WhatsApp" required placeholder="+56 9 ..." autocomplete="tel">
+        </div>
+        <div>
+          <label class="f" for="nac">Fecha de nacimiento</label>
+          <input type="date" id="nac" name="Fecha de nacimiento">
+        </div>
+      </div>
+      <label class="f" for="ig">Instagram</label>
+      <input type="text" id="ig" name="Instagram" placeholder="@usuario">
+      <label class="f req" for="email">Correo electrónico (recibirás una copia)</label>
+      <input type="email" id="email" name="email" required autocomplete="email" inputmode="email">
+    </section>
+
+    <section>
+      <h2>2. Servicio que necesita</h2>
+      <div class="svc">
+        <label class="chk"><input type="checkbox" name="Servicio: Extensiones de Pestañas" value="Sí"> Extensiones de Pestañas</label>
+        <div class="more"><input type="text" name="Extensiones – técnica/efecto" placeholder="Especificar técnica / efecto"></div>
+      </div>
+      <div class="svc">
+        <label class="chk"><input type="checkbox" name="Servicio: Lifting de Pestañas" value="Sí"> Lifting de Pestañas</label>
+        <div class="more"><input type="text" name="Lifting – incluye tinte/bótox" placeholder="¿Incluye tinte / bótox?"></div>
+      </div>
+      <div class="svc">
+        <label class="chk"><input type="checkbox" name="Servicio: Perfilado de Cejas" value="Sí"> Perfilado de Cejas</label>
+        <div class="more"><input type="text" name="Cejas – detalle" placeholder="Visagismo, hilo, cera, henna"></div>
+      </div>
+      <div class="svc">
+        <label class="chk"><input type="checkbox" name="Servicio: Otros" value="Sí"> Otros servicios</label>
+        <div class="more"><input type="text" name="Otros – detalle" placeholder="Especificar"></div>
+      </div>
+      <div class="err" id="errSvc">Selecciona al menos un servicio.</div>
+    </section>
+
+    <section>
+      <h2>3. Historial médico y alergias</h2>
+      <div class="q">
+        <p>¿Tiene alergias conocidas a cosméticos, látex o adhesivos (cianocrilato)?</p>
+        <div class="yn"><label><input type="radio" name="Alergias a cosméticos/látex/adhesivos" value="SÍ" required><span>SÍ</span></label><label><input type="radio" name="Alergias a cosméticos/látex/adhesivos" value="NO"><span>NO</span></label></div>
+      </div>
+      <div class="q">
+        <p>¿Sufre de alguna enfermedad ocular, sensibilidad extrema o lagrimeo?</p>
+        <div class="yn"><label><input type="radio" name="Enfermedad ocular/sensibilidad/lagrimeo" value="SÍ" required><span>SÍ</span></label><label><input type="radio" name="Enfermedad ocular/sensibilidad/lagrimeo" value="NO"><span>NO</span></label></div>
+      </div>
+      <div class="q">
+        <p>¿Se ha realizado alguna cirugía ocular o tratamiento estético reciente?</p>
+        <div class="yn"><label><input type="radio" name="Cirugía ocular/tratamiento reciente" value="SÍ" required><span>SÍ</span></label><label><input type="radio" name="Cirugía ocular/tratamiento reciente" value="NO"><span>NO</span></label></div>
+      </div>
+      <div class="q">
+        <p>¿Se encuentra embarazada, en período de lactancia o tiene problemas de tiroides?</p>
+        <div class="yn"><label><input type="radio" name="Embarazo/lactancia/tiroides" value="SÍ" required><span>SÍ</span></label><label><input type="radio" name="Embarazo/lactancia/tiroides" value="NO"><span>NO</span></label></div>
+      </div>
+      <div class="err" id="errMed">Responde todas las preguntas.</div>
+      <label class="f" for="det">Especificar alergias o condiciones detalladamente</label>
+      <textarea id="det" name="Detalle alergias/condiciones"></textarea>
+    </section>
+
+    <section>
+      <h2>4. Consentimiento informado</h2>
+      <p class="legal">Por medio de la presente declaración, confirmo que toda la información entregada sobre mi historial de salud, condiciones y alergias es completamente verídica y exacta. Entiendo que los procedimientos estéticos en pestañas y cejas conllevan ciertos riesgos menores inherentes, tales como enrojecimiento transitorio, sensibilidad temporal o irritación leve debido a los componentes de los productos utilizados (adhesivos, tintes o soluciones de ondulado). Me comprometo a seguir estrictamente las indicaciones de cuidados posteriores entregadas por la especialista para garantizar la salud de mis ojos y la óptima retención del trabajo realizado.</p>
+      <label class="chk" style="margin-bottom:12px"><input type="checkbox" id="acepto" name="Acepta consentimiento informado" value="SÍ" required> He leído y acepto la declaración de consentimiento informado.</label>
+      <label class="chk"><input type="checkbox" name="Autoriza uso de fotos/videos en redes" value="SÍ"> ACEPTO el uso de fotografías y videos de mi mirada con fines exclusivamente comerciales y publicitarios en las redes sociales oficiales de la marca.</label>
+      <div class="err" id="errAcepto">Debes aceptar el consentimiento para continuar.</div>
+
+      <label class="f req" style="margin-top:18px">Firma de la clienta</label>
+      <div class="modos" role="group" aria-label="Forma de firmar">
+        <button type="button" id="mDibujar" aria-pressed="true">Dibujar firma</button>
+        <button type="button" id="mEscribir" aria-pressed="false">Escribir mi nombre</button>
+      </div>
+      <div id="zonaDibujo">
+        <div class="sigbox"><canvas id="sig"></canvas><div class="sighint" id="sighint">Firma aquí con tu dedo</div></div>
+        <div class="sigtools"><span>Se adjunta como imagen al correo</span><button type="button" class="link" id="limpiar">Borrar firma</button></div>
+      </div>
+      <div class="escrita" id="zonaEscrita">
+        <input type="text" id="firmaNombre" placeholder="Escribe tu nombre completo" autocomplete="name">
+        <div class="vista" id="firmaVista">&nbsp;</div>
+      </div>
+      <input type="hidden" name="Firma" id="firmaTxt" value="">
+      <div class="err" id="errSig">Falta la firma.</div>
+    </section>
+
+    <button class="btn" type="submit" id="enviar">ENVIAR FICHA</button>
+    <div class="err" id="errGen" style="text-align:center"></div>
+    <p class="note">Al enviar, recibirás una copia en tu correo y otra quedará en Ninfa Lash Atelier.</p>
+  </form>
+</div>
+
+<script>
+/*! signature_pad v4.1.7 | (c) Szymon Nowak | MIT License */
+/*!
+ * Signature Pad v4.1.7 | https://github.com/szimek/signature_pad
+ * (c) 2023 Szymon Nowak | Released under the MIT license
+ */
+!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(t="undefined"!=typeof globalThis?globalThis:t||self).SignaturePad=e()}(this,(function(){"use strict";class t{constructor(t,e,i,s){if(isNaN(t)||isNaN(e))throw new Error(`Point is invalid: (${t}, ${e})`);this.x=+t,this.y=+e,this.pressure=i||0,this.time=s||Date.now()}distanceTo(t){return Math.sqrt(Math.pow(this.x-t.x,2)+Math.pow(this.y-t.y,2))}equals(t){return this.x===t.x&&this.y===t.y&&this.pressure===t.pressure&&this.time===t.time}velocityFrom(t){return this.time!==t.time?this.distanceTo(t)/(this.time-t.time):0}}class e{static fromPoints(t,i){const s=this.calculateControlPoints(t[0],t[1],t[2]).c2,n=this.calculateControlPoints(t[1],t[2],t[3]).c1;return new e(t[1],s,n,t[2],i.start,i.end)}static calculateControlPoints(e,i,s){const n=e.x-i.x,o=e.y-i.y,h=i.x-s.x,r=i.y-s.y,a=(e.x+i.x)/2,c=(e.y+i.y)/2,d=(i.x+s.x)/2,l=(i.y+s.y)/2,u=Math.sqrt(n*n+o*o),v=Math.sqrt(h*h+r*r),_=v/(u+v),p=d+(a-d)*_,m=l+(c-l)*_,g=i.x-p,w=i.y-m;return{c1:new t(a+g,c+w),c2:new t(d+g,l+w)}}constructor(t,e,i,s,n,o){this.startPoint=t,this.control2=e,this.control1=i,this.endPoint=s,this.startWidth=n,this.endWidth=o}length(){let t,e,i=0;for(let s=0;s<=10;s+=1){const n=s/10,o=this.point(n,this.startPoint.x,this.control1.x,this.control2.x,this.endPoint.x),h=this.point(n,this.startPoint.y,this.control1.y,this.control2.y,this.endPoint.y);if(s>0){const s=o-t,n=h-e;i+=Math.sqrt(s*s+n*n)}t=o,e=h}return i}point(t,e,i,s,n){return e*(1-t)*(1-t)*(1-t)+3*i*(1-t)*(1-t)*t+3*s*(1-t)*t*t+n*t*t*t}}class i{constructor(){try{this._et=new EventTarget}catch(t){this._et=document}}addEventListener(t,e,i){this._et.addEventListener(t,e,i)}dispatchEvent(t){return this._et.dispatchEvent(t)}removeEventListener(t,e,i){this._et.removeEventListener(t,e,i)}}class s extends i{constructor(t,e={}){super(),this.canvas=t,this._drawingStroke=!1,this._isEmpty=!0,this._lastPoints=[],this._data=[],this._lastVelocity=0,this._lastWidth=0,this._handleMouseDown=t=>{1===t.buttons&&this._strokeBegin(t)},this._handleMouseMove=t=>{this._strokeMoveUpdate(t)},this._handleMouseUp=t=>{1===t.buttons&&this._strokeEnd(t)},this._handleTouchStart=t=>{if(t.cancelable&&t.preventDefault(),1===t.targetTouches.length){const e=t.changedTouches[0];this._strokeBegin(e)}},this._handleTouchMove=t=>{t.cancelable&&t.preventDefault();const e=t.targetTouches[0];this._strokeMoveUpdate(e)},this._handleTouchEnd=t=>{if(t.target===this.canvas){t.cancelable&&t.preventDefault();const e=t.changedTouches[0];this._strokeEnd(e)}},this._handlePointerStart=t=>{t.preventDefault(),this._strokeBegin(t)},this._handlePointerMove=t=>{this._strokeMoveUpdate(t)},this._handlePointerEnd=t=>{this._drawingStroke&&(t.preventDefault(),this._strokeEnd(t))},this.velocityFilterWeight=e.velocityFilterWeight||.7,this.minWidth=e.minWidth||.5,this.maxWidth=e.maxWidth||2.5,this.throttle="throttle"in e?e.throttle:16,this.minDistance="minDistance"in e?e.minDistance:5,this.dotSize=e.dotSize||0,this.penColor=e.penColor||"black",this.backgroundColor=e.backgroundColor||"rgba(0,0,0,0)",this.compositeOperation=e.compositeOperation||"source-over",this._strokeMoveUpdate=this.throttle?function(t,e=250){let i,s,n,o=0,h=null;const r=()=>{o=Date.now(),h=null,i=t.apply(s,n),h||(s=null,n=[])};return function(...a){const c=Date.now(),d=e-(c-o);return s=this,n=a,d<=0||d>e?(h&&(clearTimeout(h),h=null),o=c,i=t.apply(s,n),h||(s=null,n=[])):h||(h=window.setTimeout(r,d)),i}}(s.prototype._strokeUpdate,this.throttle):s.prototype._strokeUpdate,this._ctx=t.getContext("2d"),this.clear(),this.on()}clear(){const{_ctx:t,canvas:e}=this;t.fillStyle=this.backgroundColor,t.clearRect(0,0,e.width,e.height),t.fillRect(0,0,e.width,e.height),this._data=[],this._reset(this._getPointGroupOptions()),this._isEmpty=!0}fromDataURL(t,e={}){return new Promise(((i,s)=>{const n=new Image,o=e.ratio||window.devicePixelRatio||1,h=e.width||this.canvas.width/o,r=e.height||this.canvas.height/o,a=e.xOffset||0,c=e.yOffset||0;this._reset(this._getPointGroupOptions()),n.onload=()=>{this._ctx.drawImage(n,a,c,h,r),i()},n.onerror=t=>{s(t)},n.crossOrigin="anonymous",n.src=t,this._isEmpty=!1}))}toDataURL(t="image/png",e){return"image/svg+xml"===t?("object"!=typeof e&&(e=void 0),`data:image/svg+xml;base64,${btoa(this.toSVG(e))}`):("number"!=typeof e&&(e=void 0),this.canvas.toDataURL(t,e))}on(){this.canvas.style.touchAction="none",this.canvas.style.msTouchAction="none",this.canvas.style.userSelect="none";const t=/Macintosh/.test(navigator.userAgent)&&"ontouchstart"in document;window.PointerEvent&&!t?this._handlePointerEvents():(this._handleMouseEvents(),"ontouchstart"in window&&this._handleTouchEvents())}off(){this.canvas.style.touchAction="auto",this.canvas.style.msTouchAction="auto",this.canvas.style.userSelect="auto",this.canvas.removeEventListener("pointerdown",this._handlePointerStart),this.canvas.removeEventListener("pointermove",this._handlePointerMove),this.canvas.ownerDocument.removeEventListener("pointerup",this._handlePointerEnd),this.canvas.removeEventListener("mousedown",this._handleMouseDown),this.canvas.removeEventListener("mousemove",this._handleMouseMove),this.canvas.ownerDocument.removeEventListener("mouseup",this._handleMouseUp),this.canvas.removeEventListener("touchstart",this._handleTouchStart),this.canvas.removeEventListener("touchmove",this._handleTouchMove),this.canvas.removeEventListener("touchend",this._handleTouchEnd)}isEmpty(){return this._isEmpty}fromData(t,{clear:e=!0}={}){e&&this.clear(),this._fromData(t,this._drawCurve.bind(this),this._drawDot.bind(this)),this._data=this._data.concat(t)}toData(){return this._data}_getPointGroupOptions(t){return{penColor:t&&"penColor"in t?t.penColor:this.penColor,dotSize:t&&"dotSize"in t?t.dotSize:this.dotSize,minWidth:t&&"minWidth"in t?t.minWidth:this.minWidth,maxWidth:t&&"maxWidth"in t?t.maxWidth:this.maxWidth,velocityFilterWeight:t&&"velocityFilterWeight"in t?t.velocityFilterWeight:this.velocityFilterWeight,compositeOperation:t&&"compositeOperation"in t?t.compositeOperation:this.compositeOperation}}_strokeBegin(t){if(!this.dispatchEvent(new CustomEvent("beginStroke",{detail:t,cancelable:!0})))return;this._drawingStroke=!0;const e=this._getPointGroupOptions(),i=Object.assign(Object.assign({},e),{points:[]});this._data.push(i),this._reset(e),this._strokeUpdate(t)}_strokeUpdate(t){if(!this._drawingStroke)return;if(0===this._data.length)return void this._strokeBegin(t);this.dispatchEvent(new CustomEvent("beforeUpdateStroke",{detail:t}));const e=t.clientX,i=t.clientY,s=void 0!==t.pressure?t.pressure:void 0!==t.force?t.force:0,n=this._createPoint(e,i,s),o=this._data[this._data.length-1],h=o.points,r=h.length>0&&h[h.length-1],a=!!r&&n.distanceTo(r)<=this.minDistance,c=this._getPointGroupOptions(o);if(!r||!r||!a){const t=this._addPoint(n,c);r?t&&this._drawCurve(t,c):this._drawDot(n,c),h.push({time:n.time,x:n.x,y:n.y,pressure:n.pressure})}this.dispatchEvent(new CustomEvent("afterUpdateStroke",{detail:t}))}_strokeEnd(t){this._drawingStroke&&(this._strokeUpdate(t),this._drawingStroke=!1,this.dispatchEvent(new CustomEvent("endStroke",{detail:t})))}_handlePointerEvents(){this._drawingStroke=!1,this.canvas.addEventListener("pointerdown",this._handlePointerStart),this.canvas.addEventListener("pointermove",this._handlePointerMove),this.canvas.ownerDocument.addEventListener("pointerup",this._handlePointerEnd)}_handleMouseEvents(){this._drawingStroke=!1,this.canvas.addEventListener("mousedown",this._handleMouseDown),this.canvas.addEventListener("mousemove",this._handleMouseMove),this.canvas.ownerDocument.addEventListener("mouseup",this._handleMouseUp)}_handleTouchEvents(){this.canvas.addEventListener("touchstart",this._handleTouchStart),this.canvas.addEventListener("touchmove",this._handleTouchMove),this.canvas.addEventListener("touchend",this._handleTouchEnd)}_reset(t){this._lastPoints=[],this._lastVelocity=0,this._lastWidth=(t.minWidth+t.maxWidth)/2,this._ctx.fillStyle=t.penColor,this._ctx.globalCompositeOperation=t.compositeOperation}_createPoint(e,i,s){const n=this.canvas.getBoundingClientRect();return new t(e-n.left,i-n.top,s,(new Date).getTime())}_addPoint(t,i){const{_lastPoints:s}=this;if(s.push(t),s.length>2){3===s.length&&s.unshift(s[0]);const t=this._calculateCurveWidths(s[1],s[2],i),n=e.fromPoints(s,t);return s.shift(),n}return null}_calculateCurveWidths(t,e,i){const s=i.velocityFilterWeight*e.velocityFrom(t)+(1-i.velocityFilterWeight)*this._lastVelocity,n=this._strokeWidth(s,i),o={end:n,start:this._lastWidth};return this._lastVelocity=s,this._lastWidth=n,o}_strokeWidth(t,e){return Math.max(e.maxWidth/(t+1),e.minWidth)}_drawCurveSegment(t,e,i){const s=this._ctx;s.moveTo(t,e),s.arc(t,e,i,0,2*Math.PI,!1),this._isEmpty=!1}_drawCurve(t,e){const i=this._ctx,s=t.endWidth-t.startWidth,n=2*Math.ceil(t.length());i.beginPath(),i.fillStyle=e.penColor;for(let i=0;i<n;i+=1){const o=i/n,h=o*o,r=h*o,a=1-o,c=a*a,d=c*a;let l=d*t.startPoint.x;l+=3*c*o*t.control1.x,l+=3*a*h*t.control2.x,l+=r*t.endPoint.x;let u=d*t.startPoint.y;u+=3*c*o*t.control1.y,u+=3*a*h*t.control2.y,u+=r*t.endPoint.y;const v=Math.min(t.startWidth+r*s,e.maxWidth);this._drawCurveSegment(l,u,v)}i.closePath(),i.fill()}_drawDot(t,e){const i=this._ctx,s=e.dotSize>0?e.dotSize:(e.minWidth+e.maxWidth)/2;i.beginPath(),this._drawCurveSegment(t.x,t.y,s),i.closePath(),i.fillStyle=e.penColor,i.fill()}_fromData(e,i,s){for(const n of e){const{points:e}=n,o=this._getPointGroupOptions(n);if(e.length>1)for(let s=0;s<e.length;s+=1){const n=e[s],h=new t(n.x,n.y,n.pressure,n.time);0===s&&this._reset(o);const r=this._addPoint(h,o);r&&i(r,o)}else this._reset(o),s(e[0],o)}}toSVG({includeBackgroundColor:t=!1}={}){const e=this._data,i=Math.max(window.devicePixelRatio||1,1),s=this.canvas.width/i,n=this.canvas.height/i,o=document.createElementNS("http://www.w3.org/2000/svg","svg");if(o.setAttribute("xmlns","http://www.w3.org/2000/svg"),o.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink"),o.setAttribute("viewBox",`0 0 ${s} ${n}`),o.setAttribute("width",s.toString()),o.setAttribute("height",n.toString()),t&&this.backgroundColor){const t=document.createElement("rect");t.setAttribute("width","100%"),t.setAttribute("height","100%"),t.setAttribute("fill",this.backgroundColor),o.appendChild(t)}return this._fromData(e,((t,{penColor:e})=>{const i=document.createElement("path");if(!(isNaN(t.control1.x)||isNaN(t.control1.y)||isNaN(t.control2.x)||isNaN(t.control2.y))){const s=`M ${t.startPoint.x.toFixed(3)},${t.startPoint.y.toFixed(3)} C ${t.control1.x.toFixed(3)},${t.control1.y.toFixed(3)} ${t.control2.x.toFixed(3)},${t.control2.y.toFixed(3)} ${t.endPoint.x.toFixed(3)},${t.endPoint.y.toFixed(3)}`;i.setAttribute("d",s),i.setAttribute("stroke-width",(2.25*t.endWidth).toFixed(3)),i.setAttribute("stroke",e),i.setAttribute("fill","none"),i.setAttribute("stroke-linecap","round"),o.appendChild(i)}}),((t,{penColor:e,dotSize:i,minWidth:s,maxWidth:n})=>{const h=document.createElement("circle"),r=i>0?i:(s+n)/2;h.setAttribute("r",r.toString()),h.setAttribute("cx",t.x.toString()),h.setAttribute("cy",t.y.toString()),h.setAttribute("fill",e),o.appendChild(h)})),o.outerHTML}}return s}));
+
+
+</script>
+<script>
+/* ====== CONFIGURACIÓN: correo fijo del atelier que recibe TODAS las fichas ====== */
+const CORREO_ATELIER = "ninfa_yari@hotmail.com";
+
+const form = document.getElementById('ficha');
+form.action = "https://formsubmit.co/" + CORREO_ATELIER;
+
+// Pantalla de agradecimiento al volver del envío
+if(new URLSearchParams(location.search).has('enviado')){
+  form.style.display='none'; document.getElementById('gracias').style.display='block';
+}
+
+// Fecha de hoy por defecto
+(function(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
+  document.getElementById('fecha').value=d.toISOString().slice(0,10);})();
+
+// Mostrar campo "especificar" al marcar un servicio
+document.querySelectorAll('.svc input[type=checkbox]').forEach(cb=>{
+  cb.addEventListener('change',()=>cb.closest('.svc').classList.toggle('on',cb.checked));
+});
+
+
+// ---- Mariposas de fondo ----
+(function(){
+  const capa=document.getElementById('vuelo');
+  const colores=['var(--wing-a)','var(--wing-b)','var(--accent)'];
+  const ala='<path d="M12 11 C9 3 2 2 1.6 6 C1.2 9.6 7 10.6 12 11.4 Z M12 12 C8 12.4 3.6 14.8 5 17.8 C6.6 20.4 10.4 16.4 12 12.4 Z"/>';
+  const n = window.innerWidth<600 ? 9 : 14;
+  for(let i=0;i<n;i++){
+    const d=document.createElement('div'); d.className='mini';
+    const col=colores[i%colores.length];
+    d.style.setProperty('--x',(Math.random()*94)+'%');
+    d.style.setProperty('--s',(12+Math.random()*14)+'px');
+    d.style.setProperty('--d',(20+Math.random()*16)+'s');
+    d.style.setProperty('--dl',(-Math.random()*36)+'s');
+    d.style.setProperty('--f',(0.5+Math.random()*0.4)+'s');
+    d.style.setProperty('--o',(0.32+Math.random()*0.3).toFixed(2));
+    d.innerHTML='<svg viewBox="0 0 24 24"><g fill="'+col+'"><g class="ala">'+ala+'</g><g transform="translate(24 0) scale(-1 1)"><g class="ala">'+ala+'</g></g></g><ellipse cx="12" cy="12" rx=".7" ry="4" fill="var(--ink)" opacity=".6"/></svg>';
+    capa.appendChild(d);
+  }
+})();
+
+// ---- Firma ----
+const cv=document.getElementById('sig'), INK='#2e2140';
+let pad=null, modo='dibujar', fallback=null;
+
+function ajustarLienzo(){
+  const r=cv.getBoundingClientRect(); if(!r.width) return;
+  const dpr=Math.max(window.devicePixelRatio||1,1);
+  const w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
+  if(cv.width===w && cv.height===h) return;          // sin cambios: no borra la firma
+  const datos = pad ? pad.toData() : null;
+  cv.width=w; cv.height=h; cv.getContext('2d').scale(dpr,dpr);
+  if(pad){ pad.clear(); if(datos && datos.length) pad.fromData(datos); }
+  if(fallback) fallback.reset();
+}
+
+// Respaldo propio por si la librería no carga
+function padSimple(){
+  const ctx=cv.getContext('2d'); let on=false, last=null, vacio=true;
+  const set=()=>{ctx.lineWidth=2.4;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle=INK;};
+  const p=(x,y)=>{const r=cv.getBoundingClientRect();return{x:x-r.left,y:y-r.top};};
+  const ini=(q)=>{set();on=true;last=q;vacio=false;ocultarPista();};
+  const mov=(q)=>{if(!on)return;ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(q.x,q.y);ctx.stroke();last=q;};
+  cv.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0];ini(p(t.clientX,t.clientY));},{passive:false});
+  cv.addEventListener('touchmove',e=>{e.preventDefault();const t=e.touches[0];mov(p(t.clientX,t.clientY));},{passive:false});
+  cv.addEventListener('touchend',()=>on=false);
+  cv.addEventListener('mousedown',e=>ini(p(e.clientX,e.clientY)));
+  window.addEventListener('mousemove',e=>mov(p(e.clientX,e.clientY)));
+  window.addEventListener('mouseup',()=>on=false);
+  return {isEmpty:()=>vacio, clear:()=>{ctx.clearRect(0,0,cv.width,cv.height);vacio=true;}, reset:()=>{vacio=true;}};
+}
+
+function ocultarPista(){document.getElementById('sighint').style.display='none';show('errSig',false);}
+
+function iniciarFirma(){
+  ajustarLienzo();
+  if(window.SignaturePad){
+    pad=new SignaturePad(cv,{penColor:INK,minWidth:1,maxWidth:2.8,throttle:0});
+    pad.addEventListener('beginStroke',ocultarPista);
+  }else{
+    fallback=padSimple();
+  }
+}
+iniciarFirma(); window.addEventListener('load',ajustarLienzo);
+
+if(window.ResizeObserver) new ResizeObserver(ajustarLienzo).observe(cv);
+window.addEventListener('orientationchange',()=>setTimeout(ajustarLienzo,300));
+
+document.getElementById('limpiar').onclick=()=>{ if(pad) pad.clear(); if(fallback) fallback.clear();
+  document.getElementById('sighint').style.display=''; };
+
+function firmaVacia(){
+  if(modo==='escribir') return document.getElementById('firmaNombre').value.trim().length<3;
+  if(pad) return pad.isEmpty();
+  if(fallback) return fallback.isEmpty();
+  return true;
+}
+
+// Cambio entre dibujar / escribir
+function ponerModo(m){
+  modo=m;
+  document.getElementById('mDibujar').setAttribute('aria-pressed',m==='dibujar');
+  document.getElementById('mEscribir').setAttribute('aria-pressed',m==='escribir');
+  document.getElementById('zonaDibujo').style.display=m==='dibujar'?'':'none';
+  document.getElementById('zonaEscrita').style.display=m==='escribir'?'block':'none';
+  if(m==='dibujar') setTimeout(ajustarLienzo,50);
+}
+document.getElementById('mDibujar').onclick=()=>ponerModo('dibujar');
+document.getElementById('mEscribir').onclick=()=>ponerModo('escribir');
+const fn=document.getElementById('firmaNombre');
+fn.addEventListener('input',()=>{document.getElementById('firmaVista').textContent=fn.value.trim()||'\u00a0'; if(fn.value.trim().length>=3) show('errSig',false);});
+
+// Firma como PNG con fondo blanco
+async function firmaBlob(){
+  const t=document.createElement('canvas'), c=t.getContext('2d');
+  if(modo==='escribir'){
+    try{ await document.fonts.load('64px "Great Vibes"'); }catch(_){}
+    t.width=900; t.height=260; c.fillStyle='#fff'; c.fillRect(0,0,t.width,t.height);
+    c.fillStyle=INK; c.textAlign='center'; c.textBaseline='middle';
+    let size=96; const txt=fn.value.trim();
+    do{ c.font=size+'px "Great Vibes", cursive'; size-=4; }while(c.measureText(txt).width>840 && size>30);
+    c.fillText(txt,450,130);
+  }else{
+    t.width=cv.width; t.height=cv.height; c.fillStyle='#fff'; c.fillRect(0,0,t.width,t.height); c.drawImage(cv,0,0);
+  }
+  return new Promise(res=>t.toBlob(b=>res(b),'image/png'));
+}
+
+function show(id,on){document.getElementById(id).style.display=on?'block':'none';}
+
+form.addEventListener('submit', async e=>{
+  e.preventDefault();
+  let ok=true, first=null;
+  const mark=(cond,id,el)=>{show(id,!cond); if(!cond){ok=false; if(!first) first=el;}};
+
+  // Campos requeridos básicos
+  for(const el of form.querySelectorAll('input[required][type=text],input[required][type=email],input[required][type=tel],input[required][type=date]')){
+    const valid = el.value.trim()!=='' && el.checkValidity();
+    el.style.borderColor = valid ? '' : 'var(--err)';
+    if(!valid){ok=false; if(!first) first=el;}
+  }
+  mark(!!form.querySelector('.svc input[type=checkbox]:checked'),'errSvc',document.querySelector('.svc'));
+  const grupos=[...new Set([...form.querySelectorAll('.yn input')].map(i=>i.name))];
+  mark(grupos.every(n=>form.querySelector(`input[name="${CSS.escape(n)}"]:checked`)),'errMed',document.querySelector('.q'));
+  mark(document.getElementById('acepto').checked,'errAcepto',document.getElementById('acepto'));
+  mark(!firmaVacia(),'errSig',document.querySelector('.modos'));
+
+  if(!ok){ first.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+  if(CORREO_ATELIER.startsWith('CAMBIAR')){
+    const g=document.getElementById('errGen'); g.textContent='Falta configurar el correo del atelier en el formulario.'; g.style.display='block'; return;
+  }
+
+  const btn=document.getElementById('enviar'); btn.disabled=true; btn.textContent='ENVIANDO…';
+  const nombre=document.getElementById('nombre').value.trim();
+  if(location.protocol.startsWith('http')) document.getElementById('_next').value=location.href.split('?')[0].split('#')[0]+'?enviado=1';
+  document.getElementById('_cc').value=document.getElementById('email').value.trim();
+  document.getElementById('_subject').value='Ficha clienta – '+nombre+' – Ninfa Lash Atelier';
+
+  // Adjuntar firma como imagen (si el navegador lo permite)
+  document.getElementById('firmaTxt').value= modo==='escribir' ? 'Firma escrita: '+fn.value.trim() : 'Firmada digitalmente';
+  try{
+    const b=await firmaBlob();
+    const file=new File([b],'firma_'+nombre.replace(/\s+/g,'_')+'.png',{type:'image/png'});
+    const dt=new DataTransfer(); dt.items.add(file);
+    document.getElementById('firmaFile').files=dt.files;
+    document.getElementById('firmaTxt').value+= ' (imagen adjunta)';
+  }catch(err){
+    document.getElementById('firmaFile').removeAttribute('name');
+  }
+  form.submit();
+});
+</script>
+</body>
